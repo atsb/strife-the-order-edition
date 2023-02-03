@@ -2,6 +2,10 @@ Strife: Veteran Edition GPL Source Code
 =======================================
 Copyright 2020, Night Dive Studios, Incorporated.
 
+Gibbon: Strife VE EX will be a cleaned up copy of this source for all major systems and with all the proprietary leftovers removed and things fixed.
+
+Original Below:
+
 This file contains the following sections:
 
 - GENERAL NOTES
