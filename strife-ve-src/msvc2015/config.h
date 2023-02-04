@@ -2,25 +2,25 @@
  * configure. */
 
 /* Name of package */
-#define PACKAGE "strife-ve-ex"
+#define PACKAGE "strife-toe"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "Strife: Veteran Edition EX"
+#define PACKAGE_NAME "Strife: The Order Edition"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Strife-VE-EX 2.0.0"
+#define PACKAGE_STRING "Strife-TOE 2.0.0"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "strife-ve-ex"
+#define PACKAGE_TARNAME "strife-toe"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "2.0.0"
 
 /* Change this when you create your awesome forked version */
-#define PROGRAM_PREFIX "strife-ve-ex-"
+#define PROGRAM_PREFIX "strife-toe-"
 
 /* Version number of package */
 #define VERSION "2.0.0"
