@@ -2583,24 +2583,14 @@ static char *GetDefaultConfigDir(void)
             free(res1);
     }
 #endif
+#endif
 
 #ifdef SVE_PLAT_SWITCH
     // dimitrisg : 20201506 use the default mount path for NX
     return "save://";
 #endif
 
-#if defined(__APPLE__)
-    // On Apple, try to create a folder under "~/Library/Application Support".
-    // This is not guaranteed to work, and there is no way to get the proper path when
-    // it won't without use of Objective-C code.
-
-    if((!stat(SVE_APPLE_PATH, &st) && S_ISDIR(st.st_mode)) || // already exists?
-       M_MakeDirectory(SVE_APPLE_PATH))                       // created successfully?
-    {
-        return M_Strdup(SVE_APPLE_PATH_S);
-    }
-    else
-#elif defined(__linux__) || defined(__OpenBSD__)
+#if defined(__linux__) || defined(__OpenBSD__)
     // Linux defaults
     // Configuration settings are stored in $XDG_DATA_HOME instead of $HOME on Linux.
 
@@ -2618,11 +2608,12 @@ static char *GetDefaultConfigDir(void)
     }
     else
 #endif // #elif defined(__linux__)
-#else // #if !defined(_WIN32)
-#if defined(LUNA_RELEASE)
-	// Luna needs a standard savegame directory.
+
+#if defined(__APPLE__)
+// Just use SDL GetPrefPath for macOS.
+// It still goes to Application Support.
 	{
-		char *pref = SDL_GetPrefPath("Nightdive Studios", "Strife");
+		char *pref = SDL_GetPrefPath("The Order Edition", "Strife");
 		if (pref == NULL)
 		{
 			I_Error("Could not create user directory.");
@@ -2638,8 +2629,7 @@ static char *GetDefaultConfigDir(void)
 	{
 		return M_Strdup("");
 	}
-#endif // #if defined(LUNA_RELEASE)
-#endif // #if !defined(_WIN32)
+#endif
 }
 
 // 

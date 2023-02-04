@@ -31,30 +31,10 @@ Compiling on Windows:
 A cleaned and corrected project file for Microsoft Visual Studio is provided in 
 msvc2015/chocolate.sln and should compile with any edition.
 
-Compiling on MacOS 10.x:
-------------------------
-
-A project file for XCode is provided in xcode/Chocolate/Strife-VE.xcodeproj
-All dependencies and settings should already be set inside the workspace.
-The XCode project may currently be out of date as of this source release.
-
-Gibbon: This needs work, I will do it at a later date.
-
-Compiling on Linux:
+Compiling on Linux and macOS:
 -------------------
 
 A CMake build system has been added in version 1.3, and is currently up-to-date.
-
-A project file for Codeblocks is provided in codeblocks/chocolate.workspace
-Before compiling, be sure to compile patchelf first by going into the patchelf/
-directory and then running configure and then make. The project has not been
-updated for 1.3, so some source files may need to be added before you can 
-build successfully.
-
-Codeblocks uses a post-build step that calls patchelf to set up runtime paths
-for the output executable.
-
-Gibbon: This needs work, I will do it at a later date.
 
 Trademark disclaimers:
 ----------------------

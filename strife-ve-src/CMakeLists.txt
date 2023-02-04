@@ -28,38 +28,19 @@ include(ExternalProject)
 # [AM] Needed for target_link_directories
 cmake_minimum_required(VERSION 3.13)
 
-project(strife-ve)
+project(strife-toe)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 set(SOURCE_ROOT_DIR "${CMAKE_SOURCE_DIR}")
 
-set(PACKAGE_NAME "strife-ve")
-set(PACKAGE_STRING "Strife-VE 1.3")
-set(PACKAGE_TARNAME "strife-ve")
-set(PROGRAM_PREFIX "chocolate-")
+set(PACKAGE_NAME "strife-toe")
+set(PACKAGE_STRING "Strife-TOE 2.0")
+set(PACKAGE_TARNAME "strife-toe")
+set(PROGRAM_PREFIX "strife-")
 
 ##------------------------------------------------------------------------------
 ## Options
 ##
-
-option(ENABLE_STEAM "Build with Steamworks support." OFF)
-option(ENABLE_GOG "Build GOG version for Linux." OFF)
-option(ENABLE_LUNA "Build with Luna support" OFF)
-
-if(ENABLE_STEAM)
-   set(ENABLE_STEAM_RUNTIME ON)
-   set(ENABLE_STEAM_SERVICE ON)
-elseif(ENABLE_GOG)
-   set(ENABLE_STEAM_RUNTIME ON)
-   set(ENABLE_STEAM_SERVICE OFF)
-endif()
-
-# If building for Steam, steam_api, FFMPEG, and SDL_net are all in the local dir.
-# Same deal for GOG build
-if(ENABLE_STEAM_RUNTIME)
-   set(CMAKE_INSTALL_RPATH "\$ORIGIN")
-   set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-endif()
 
 ##------------------------------------------------------------------------------
 ## CMake functions
@@ -208,65 +189,6 @@ include_directories("${CMAKE_BINARY_DIR}")
 
 configure_file("${CMAKE_MODULE_PATH}/config.h.in"
                "${CMAKE_BINARY_DIR}/config.h")
-
-##------------------------------------------------------------------------------
-## Platform-specific sources
-##
-
-# Libraries when compiling for Steam.
-if(ENABLE_STEAM_SERVICE)
-	set(STEAMWORKS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../steamworks_sdk_150/"
-		CACHE PATH "Path to the root directory of the Steamworks SDK")
-
-	if(NOT EXISTS "${STEAMWORKS_DIR}")
-		message(FATAL_ERROR
-			"SteamService is enabled, but \"${STEAMWORKS_DIR}\" does not exist\n"
-			"Please ensure that the STEAMWORKS_DIR setting points to an extracted "
-			"Steamworks SDK directory.")
-	endif()
-
-	set(STEAM_SERVICE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../steam-service/api/SteamService"
-		CACHE PATH "Path to the root directory of SteamService, containing a CMakeLists.txt")
-
-	if(NOT EXISTS "${STEAM_SERVICE_DIR}/CMakeLists.txt")
-		message(FATAL_ERROR "SteamService is enabled, but \"${STEAM_SERVICE_DIR}\" does not exist")
-	endif()
-
-	# Compile SteamService as an external project on build.
-	ExternalProject_Add(
-		steam-service-project
-		# Point to an existing source checkout
-		SOURCE_DIR "${STEAM_SERVICE_DIR}"
-		# Skip the download step
-		DOWNLOAD_COMMAND ""
-		# Configure step points to the Steamworks SDK and installs it
-		# someplace where we can find it later.
-		CMAKE_ARGS
-			"-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
-			"-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-			"-DCMAKE_LINKER=${CMAKE_LINKER}"
-			"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
-			"-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}"
-			"-DSTEAMWORKS_DIR=${STEAMWORKS_DIR}"
-			"-DCMAKE_INSTALL_PREFIX=${STRIFE_LOCAL}"
-		BUILD_BYPRODUCTS
-			"${STRIFE_LOCAL}/lib/libSteamService.so"
-	)
-
-	# Linux
-	if(NOT APPLE AND NOT WIN32)
-		add_library(SteamService INTERFACE IMPORTED)
-		add_dependencies(SteamService steam-service-project)
-		target_compile_definitions(SteamService INTERFACE _USE_STEAM_)
-		target_link_directories(SteamService INTERFACE
-			"${STRIFE_LOCAL}/lib/"
-			"${STEAMWORKS_DIR}/sdk/redistributable_bin/linux64"
-		)
-		target_link_libraries(SteamService INTERFACE steam_api SteamService.so)
-	else()
-		message(FATAL_ERROR "This platform is not implemented")
-	endif()
-endif()
 
 ##------------------------------------------------------------------------------
 ## Sources
@@ -665,18 +587,12 @@ add_sources(src/strife
 ##
 
 include_directories(${SOURCE_ROOT_DIR})
-add_executable(strife-ve ${SOURCES})
-set_property(TARGET strife-ve PROPERTY C_STANDARD 99)
-target_compile_definitions(strife-ve PUBLIC SVE_USE_THEORAPLAY)
-target_link_libraries(strife-ve m Threads::Threads ${LIBRARIES}
+add_executable(strife-toe ${SOURCES})
+set_property(TARGET strife-toe PROPERTY C_STANDARD 99)
+target_compile_definitions(strife-toe PUBLIC)
+target_link_libraries(strife-toe m Threads::Threads ${LIBRARIES}
 	SDL2::SDL2main SDL2::SDL2 SDL2::mixer SDL2::net
 	OGG::OGG THEORA::DEC VORBIS::VORBIS)
-if(ENABLE_STEAM_SERVICE)
-	target_link_libraries(strife-ve SteamService)
-endif()
-if(ENABLE_LUNA)
-	target_compile_definitions(strife-ve PUBLIC SVE_USE_LUNA)
-endif()
 
 ##------------------------------------------------------------------------------
 ## Copy libraries
@@ -687,16 +603,9 @@ if(NOT WIN32 AND NOT APPLE)
 		"${CMAKE_CURRENT_SOURCE_DIR}/strife-ve.sh"
 	)
 
-	if(ENABLE_STEAM_SERVICE)
-		list(APPEND STRIFE_DLLS
-			"${STRIFE_LOCAL}/lib/libSteamService.so")
-		list(APPEND STRIFE_DLLS
-			"${STEAMWORKS_DIR}/sdk/redistributable_bin/linux64/libsteam_api.so")
-	endif()
-
 	foreach(STRIFE_DLL ${STRIFE_DLLS})
 		# Copy our libraries and the start script
-		add_custom_command(TARGET strife-ve POST_BUILD
+		add_custom_command(TARGET strife-toe POST_BUILD
 			COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 			${STRIFE_DLL} "${CMAKE_CURRENT_BINARY_DIR}"
 		)
