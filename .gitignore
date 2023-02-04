@@ -1,0 +1,9 @@
+
+*.obj
+*.tlog
+*.map
+*.iobj
+*.exp
+*.recipe
+*.asm
+*.res
