@@ -115,11 +115,6 @@ void FE_UpdateFocus(void)
     //fe_window_focused = (state & SDL_APPINPUTFOCUS) && (state & SDL_APPACTIVE);
     fe_window_focused = true;
 
-    // The above check can still be true even if Steam is eating input, but to
-    // SDL it's the same as having lost focus.
-    if(gAppServices->OverlayActive())
-        fe_window_focused = false;
-
     if(currently_focused != fe_window_focused)
     {
         if(fe_window_focused)
@@ -174,12 +169,9 @@ static void FE_Ticker(void)
 {
     ++frontend_tic;
 
-    // update app services provider status
-    gAppServices->Update();
-
     // check for overlay state change
     fePrevInOverlay = feInOverlay;
-    feInOverlay     = !!gAppServices->OverlayActive();
+    feInOverlay = false;
     if(!feInOverlay && fePrevInOverlay)
         I_SetShowVisualCursor(true);
 
@@ -1007,9 +999,6 @@ static void FE_Responder(void)
     if(FE_InModalNetState())
         return;
 
-    // [SVE] svillarreal
-    if(!gAppServices->OverlayActive())
-    {
         // run joybind responders?
         if(frontend_state == FE_STATE_JBINPUT)
         {
@@ -1030,12 +1019,10 @@ static void FE_Responder(void)
         }
 
         FE_HandleJoyAxes();
-    }
+
 
     while(SDL_PollEvent(&ev))
     {
-        if(gAppServices->OverlayEventFilter(ev.type))
-            continue;
 
         switch(ev.type)
         {

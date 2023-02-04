@@ -79,6 +79,7 @@ void RB_Init(void)
 
     RB_InitDefaultState();
     RB_InitDrawer();
+    SDL_GL_SetSwapInterval(rbVsync ? 1 : 0);
 
     bPrintStats = M_CheckParm("-printglstats");
 #ifndef SVE_PLAT_SWITCH

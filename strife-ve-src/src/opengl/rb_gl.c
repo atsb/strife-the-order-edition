@@ -91,7 +91,6 @@ boolean GL_PreInit(void)
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-    SDL_GL_SetSwapInterval(rbVsync ? 1 : 0);
     return true;
 }
 

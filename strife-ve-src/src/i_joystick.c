@@ -782,10 +782,6 @@ void I_UpdateJoystick(void)
         joystick_threshold = 1.0f;
     }
 
-    // [SVE] svillarreal
-    if(gAppServices->OverlayActive())
-        return;
-
     if(controller != NULL)
     {
         int x = GetAxisState(joystick_x_axis, joystick_x_invert);

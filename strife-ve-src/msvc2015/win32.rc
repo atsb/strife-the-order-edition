@@ -34,12 +34,12 @@ BEGIN
 		BLOCK "040904E4"
 		BEGIN
 			VALUE "FileVersion", "1.0.0"
-			VALUE "FileDescription", "Strife: Veteran Edition"
-			VALUE "InternalName", "strife-ve"
+			VALUE "FileDescription", "Strife: Veteran Edition EX"
+			VALUE "InternalName", "strife-ve-ex"
 			VALUE "OriginalFilename", "chocolate-doom.exe"
 			VALUE "CompanyName", "Night Dive Studios, Incorporated"
-			VALUE "LegalCopyright", "© 2014 Night Dive Studios, Inc. et al.; Available under GNU General Public License."
-			VALUE "ProductName", "Strife: Veteran Edition"
+			VALUE "LegalCopyright", "© 2014 Night Dive Studios, Inc. et al.; © 2023 Gibbon; Available under GNU General Public License."
+			VALUE "ProductName", "Strife: Veteran Edition EX"
 			VALUE "ProductVersion", "2.0.0"
 		END
 	END

@@ -170,9 +170,6 @@ void FE_IncrementTeam(void)
     if(++ctcprefteam == PREF_TEAM_MAX)
         ctcprefteam = PREF_TEAM_AUTO;
     S_StartSound(NULL, sfx_swtchn);
-
-    // broadcast to the lobby
-    gAppServices->LobbyChangeTeam(ctcteamvals[ctcprefteam]);
 }
 
 void FE_DecrementTeam(void)
@@ -183,8 +180,6 @@ void FE_DecrementTeam(void)
         --ctcprefteam;
     S_StartSound(NULL, sfx_swtchn);
 
-    // broadcast to the lobby
-    gAppServices->LobbyChangeTeam(ctcteamvals[ctcprefteam]);
 }
 
 const char *FE_GetLobbyTeam(void)
@@ -204,7 +199,7 @@ const char *FE_GetLobbyTeam(void)
 //
 void FE_EnableLobbyListener(void)
 {
-    gAppServices->BeginLobbyJoinListener();
+
 }
 
 //
@@ -212,7 +207,7 @@ void FE_EnableLobbyListener(void)
 //
 void FE_DisableLobbyListener(void)
 {
-    gAppServices->DestroyLobbyJoinListener();
+
 }
 
 //
@@ -220,7 +215,7 @@ void FE_DisableLobbyListener(void)
 //
 boolean FE_CheckLobbyListener(void)
 {
-    return !!gAppServices->LobbyJoinRequested();
+
 }
 
 //=============================================================================
@@ -364,25 +359,25 @@ void FE_CheckForLobbyUpgrade(void)
 // "newpublobby" command
 void FE_CmdNewPublicLobby(void)
 {
-    FE_CreateLobby(1);
+
 }
 
 // "newprivlobby" command
 void FE_CmdNewPrivateLobby(void)
 {
-    FE_CreateLobby(0);
+
 }
 
 // "leavelobby" command
 void FE_CmdLeaveLobby(void)
 {
-    FE_LeaveLobby();
+
 }
 
 // "invite" command
 void FE_CmdInvite(void)
 {
-    gAppServices->LobbyInviteFriends();
+
 }
 
 //=============================================================================
@@ -397,16 +392,7 @@ static boolean feLobbyJoinFailed;
 //
 static int FE_CheckLobbyJoined(void)
 {
-    switch(gAppServices->LobbyPollState())
-    {
-    case I_LOBBY_STATE_JOINING:
-        return 0;
-    case I_LOBBY_STATE_INLOBBY:
-        return 1;
-    default: // join failed, or a different (unknown?) state
-        gAppServices->LobbyCleanUp();
-        return -1;
-    }
+
 }
 
 //
@@ -414,47 +400,7 @@ static int FE_CheckLobbyJoined(void)
 //
 static void FE_LobbyJoinTick(void)
 {
-    if(feLobbyJoinFailed)
-    {
-        if(--feLobbyErrMsgTimer == 0)
-        {
-            frontend_modalmsg = NULL;
-            feModalLoopFunc   = NULL;
-            frontend_state    = FE_STATE_MAINMENU;
-            FE_EnableLobbyListener(); // can re-enable listener
-        }
-        return;
-    }
-
-    switch(FE_CheckLobbyJoined())
-    {
-    case 1: // successful connection
-        frontend_modalmsg = NULL;
-        feModalLoopFunc   = NULL;
-        frontend_state    = FE_STATE_MAINMENU;
-        feInLobby         = true;
-        ctcprefteam       = PREF_TEAM_AUTO;
-        gAppServices->LobbyChangeTeam(ctcteamvals[ctcprefteam]);
-
-        if(gAppServices->LobbyUserIsOwner()) // user became owner when joining?
-        {
-            FE_DMSensibleDefaults(true);
-            FE_ExecCmd("lobbysrv"); // go to lobby server menu
-        }
-        else
-        {
-            FE_BackupDMVars();
-            FE_ExecCmd("lobbyclient"); // go to lobby client menu
-        }
-        break;
-    case 0: // still waiting
-        break;
-    case -1: // failed
-        frontend_modalmsg  = "Lobby join failed.";
-        feLobbyJoinFailed  = true;
-        feLobbyErrMsgTimer = 2*frontend_fpslimit;
-        break;
-    }
+    
 }
 
 //
@@ -465,16 +411,7 @@ static void FE_LobbyJoinTick(void)
 //
 void FE_JoinLobbyFromInvite(void)
 {
-    if(feInLobby)
-        return;
 
-    gAppServices->JoinLobbyFromInvite();
-    FE_DisableLobbyListener(); // turn off listener now.
-    frontend_state    = FE_STATE_LOBBYJOIN;
-    frontend_modalmsg = "Joining lobby...";
-    feInLobby         = false;
-    feLobbyJoinFailed = false;
-    feModalLoopFunc   = FE_LobbyJoinTick;
 }
 
 //
@@ -485,16 +422,7 @@ void FE_JoinLobbyFromInvite(void)
 //
 void FE_JoinLobbyFromConnectStr(const char *lobbyID)
 {
-    if(feInLobby)
-        return;
 
-    gAppServices->JoinLobbyFromStartup(lobbyID);
-    FE_DisableLobbyListener(); // turn off listener if still on
-    frontend_state    = FE_STATE_LOBBYJOIN;
-    frontend_modalmsg = "Joining lobby...";
-    feInLobby         = false;
-    feLobbyJoinFailed = false;
-    feModalLoopFunc   = FE_LobbyJoinTick;
 }
 
 //=============================================================================
@@ -510,15 +438,7 @@ static boolean dashlineBuilt;
 //
 static void FE_DrawDashLine(int x, int y, int width)
 {
-    if(!dashlineBuilt)
-    {
-        int idx = 0;
-        while(HUlib_yellowTextWidth(dashlinebuf) < width && idx < 127)
-            dashlinebuf[idx++] = '-';
-        dashlineBuilt = true;
-    }
 
-    HUlib_drawYellowText(x, y, dashlinebuf, true);
 }
 
 //
@@ -526,48 +446,7 @@ static void FE_DrawDashLine(int x, int y, int width)
 //
 void FE_DrawLobbyUserList(int x, int y)
 {
-    int i;
-    int numUsers = gAppServices->LobbyGetNumMembers();
-    static int stateWidth;
 
-    if(!stateWidth)
-        stateWidth = HUlib_yellowTextWidth("Player State");
-
-    HUlib_drawYellowText(x, y, "Players in Lobby", true);
-    HUlib_drawYellowText(x+120, y, "Player State", true);
-    y += 8;
-    FE_DrawDashLine(x, y, 120 + stateWidth);
-    y += 8;
-    for(i = 0; i < numUsers; i++)
-    {
-        char *name    = M_Strdup(gAppServices->LobbyGetUserNameAt(i));
-        char *team    = M_Strdup(gAppServices->LobbyGetTeamAt(i));
-        boolean ready = gAppServices->LobbyGetUserReadyAt(i);
-        char *patch;
-        boolean autoteam = false;
-       
-        FE_SanitizeString(name, 110, true);
-
-        if(!strcasecmp(team, "Blue"))
-            patch = "STCOLOR8";
-        else if(!strcasecmp(team, "Red"))
-            patch = "STCOLOR2";
-        else
-        {
-            patch = "STCOLOR1";
-            autoteam = true;
-        }
-
-        V_DrawPatch(x - 10, y - 1, W_CacheLumpName(patch, PU_CACHE));
-        if(autoteam)
-            HUlib_drawYellowText(x - 9, y, "?", false);
-        HUlib_drawYellowText(x, y, name, true);
-        HUlib_drawYellowText(x+120, y, ready ? "Ready" : "Not Ready", true);
-        y += 8;
-
-        free(name);
-        free(team);
-    }
 }
 
 //=============================================================================

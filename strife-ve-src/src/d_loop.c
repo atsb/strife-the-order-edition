@@ -472,9 +472,6 @@ boolean D_InitNetGame(net_connect_data_t *connect_data)
 
 #ifdef FEATURE_MULTIPLAYER
 
-    // RUN CALLBACKS
-    gAppServices->Update();
-
 #ifdef I_APPSERVICES_NETWORKING
     // haleyjd 20141022: [SVE]
     // Are we marked to start a Steam-negotiated netgame? This may be a pure UDP

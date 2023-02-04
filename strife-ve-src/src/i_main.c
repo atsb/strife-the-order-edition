@@ -156,15 +156,6 @@ int main(int argc, char **argv)
     // Edward [SVE]: Speed things up
     I_SetCPUHighPerformance(1);
 
-    // [SVE] initialize application services provider
-    I_InitAppServices();
-
-    if(gAppServices->CheckForRestart())
-        return 1;
-
-    gAppServices->Init();
-    I_AtExit(gAppServices->Shutdown, true);
-
     // Only schedule on a single core, if we have multiple
     // cores.  This is to work around a bug in SDL_mixer.
     // [SVE]: this should not be needed any more.

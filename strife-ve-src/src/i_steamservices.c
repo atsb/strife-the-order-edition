@@ -18,7 +18,6 @@
 #ifdef _USE_STEAM_
 
 #include "i_social.h"
-#include "steamService.h"
 
 static int I_SteamOverlayEventFilter(unsigned int event)
 {
@@ -35,71 +34,7 @@ static int I_SteamOverlayEatsShiftTab(void)
 
 IAppServices SteamAppServices =
 {
-    // Core
-    I_SteamInit,
-    I_SteamShutdown,
-    I_SteamCheckForRestart,
-    I_SteamUpdate,
-
-    // Achievements
-    I_SteamSetAchievement,
-    I_SteamSetAchievementProgress,
-    I_SteamHasAchievement,
-   
-    // P2P network driver
-    I_SteamSendPacket,
-    I_SteamRecvPacket,
-    I_SteamResolveAddress,
-    
-    // Lobby join listener
-    I_SteamBeginLobbyJoinListener,
-    I_SteamDestroyLobbyJoinListener,
-    I_SteamLobbyJoinRequested,
-
-    // Lobby
-    I_SteamLobbyPollState,
-    I_SteamCreateNewLobby,
-    I_SteamJoinLobbyFromStartup,
-    I_SteamJoinLobbyFromInvite,
-    I_SteamLobbyCleanUp,
-    I_SteamLeaveLobby,
-    I_SteamLeaveLobby,           // NB: there is no "lock" operation; users leave the lobby.
-    I_SteamLobbyInviteFriends,
-    I_SteamLobbyStartGame,
-    I_SteamLobbyGetReady,
-    I_SteamLobbyChangeReady,
-    I_SteamLobbyGetUserReadyAt,
-    I_SteamLobbyGetTeam,
-    I_SteamLobbyChangeTeam,
-    I_SteamLobbyGetTeamAt,
-    I_SteamLobbyUserIsOwner,
-    I_SteamLobbyGetNumMembers,
-    I_SteamLobbyGetUserNameAt,
-    I_SteamLobbyGetName,
-    I_SteamLobbyUpdateName,
-    I_SteamLobbyCheckStartGame,
-
-    // Lobby manager
-    I_SteamLobbyMgrRefresh,
-    I_SteamLobbyMgrInRequest,
-    I_SteamLobbyMgrGetCount,
-    I_SteamLobbyMgrGetNameAt,
-    I_SteamLobbyMgrJoinLobbyAt,
-
-    // Server component
-    I_SteamServerGetClientsFromLobby,
-
-    // Client component
-    I_SteamClientGetServerFromLobby,
-    I_SteamClientGetServerAddr,
-
-    // User
-    I_SteamGetLocalUserName,
-
-    // Overlay
-    I_SteamOverlayActive,
-    I_SteamOverlayEventFilter,
-    I_SteamOverlayEatsShiftTab
+    0
 };
 
 #endif

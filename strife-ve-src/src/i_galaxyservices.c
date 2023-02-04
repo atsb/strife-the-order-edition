@@ -20,7 +20,6 @@
 #include "SDL.h"
 
 #include "i_social.h"
-#include "gogService.h"
 
 //
 // The GOG Galaxy overlay does not filter some SDL event types properly,
@@ -57,71 +56,7 @@ static int I_GalaxyOverlayEatsShiftTab(void)
 
 IAppServices GalaxyAppServices =
 {
-    // Core
-    I_GalaxyInit,
-    I_GalaxyShutdown,
-    I_GalaxyCheckForRestart,
-    I_GalaxyUpdate,
-
-    // Achievements
-    I_GalaxySetAchievement,
-    I_GalaxySetAchievementProgress,
-    I_GalaxyHasAchievement,
-   
-    // P2P network driver
-    I_GalaxySendPacket,
-    I_GalaxyRecvPacket,
-    I_GalaxyResolveAddress,
-    
-    // Lobby join listener
-    I_GalaxyBeginLobbyJoinListener,
-    I_GalaxyDestroyLobbyJoinListener,
-    I_GalaxyLobbyJoinRequested,
-
-    // Lobby
-    I_GalaxyLobbyPollState,
-    I_GalaxyCreateNewLobby,
-    I_GalaxyJoinLobbyFromStartup,
-    I_GalaxyJoinLobbyFromInvite,
-    I_GalaxyLobbyCleanUp,
-    I_GalaxyLeaveLobby,
-    I_GalaxyLockLobby,
-    I_GalaxyLobbyInviteFriends,
-    I_GalaxyLobbyStartGame,
-    I_GalaxyLobbyGetReady,
-    I_GalaxyLobbyChangeReady,
-    I_GalaxyLobbyGetUserReadyAt,
-    I_GalaxyLobbyGetTeam,
-    I_GalaxyLobbyChangeTeam,
-    I_GalaxyLobbyGetTeamAt,
-    I_GalaxyLobbyUserIsOwner,
-    I_GalaxyLobbyGetNumMembers,
-    I_GalaxyLobbyGetUserNameAt,
-    I_GalaxyLobbyGetName,
-    I_GalaxyLobbyUpdateName,
-    I_GalaxyLobbyCheckStartGame,
-
-    // Lobby manager
-    I_GalaxyLobbyMgrRefresh,
-    I_GalaxyLobbyMgrInRequest,
-    I_GalaxyLobbyMgrGetCount,
-    I_GalaxyLobbyMgrGetNameAt,
-    I_GalaxyLobbyMgrJoinLobbyAt,
-
-    // Server component
-    I_GalaxyServerGetClientsFromLobby,
-
-    // Client component
-    I_GalaxyClientGetServerFromLobby,
-    I_GalaxyClientGetServerAddr,
-
-    // User
-    I_GalaxyGetLocalUserName,
-
-    // Overlay
-    I_GalaxyOverlayActive,
-    I_GalaxyOverlayEventFilter,
-    I_GalaxyOverlayEatsShiftTab
+    0
 };
 
 #endif

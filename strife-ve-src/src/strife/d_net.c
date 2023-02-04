@@ -238,9 +238,6 @@ void D_ConnectNetGame(void)
     InitConnectData(&connect_data);
     netgame = D_InitNetGame(&connect_data);
 
-    // leave or lock lobby if still in one
-    gAppServices->LockLobby();
-
     //!
     // @category net
     //
