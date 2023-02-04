@@ -1,10 +1,7 @@
-Strife: Veteran Edition GPL Source Code
+Strife: The Order Edition
 =======================================
-Copyright 2020, Night Dive Studios, Incorporated.
 
-Gibbon: Strife VE EX will be a cleaned up copy of this source for all major systems and with all the proprietary leftovers removed and things fixed.
-
-Original Below:
+This has been renamed to The Order Edition as Strife: Veteran Edition is a trademarked name by NightDive Studios.
 
 This file contains the following sections:
 
@@ -16,6 +13,8 @@ GENERAL NOTES
 
 Game data and patching:
 -----------------------
+
+Strife: The Order Edition uses the Strife Veteran Edition game data.
 
 This source release does not contain any game data, the game data is still
 covered by the original EULA and must be obeyed as usual.
@@ -29,7 +28,7 @@ http://store.steampowered.com/app/317040/
 Compiling on Windows:
 ---------------------
 
-A project file for Microsoft Visual Studio 2015 is provided in 
+A cleaned and corrected project file for Microsoft Visual Studio is provided in 
 msvc2015/chocolate.sln and should compile with any edition.
 
 Compiling on MacOS 10.x:
@@ -38,6 +37,8 @@ Compiling on MacOS 10.x:
 A project file for XCode is provided in xcode/Chocolate/Strife-VE.xcodeproj
 All dependencies and settings should already be set inside the workspace.
 The XCode project may currently be out of date as of this source release.
+
+Gibbon: This needs work, I will do it at a later date.
 
 Compiling on Linux:
 -------------------
@@ -52,6 +53,8 @@ build successfully.
 
 Codeblocks uses a post-build step that calls patchelf to set up runtime paths
 for the output executable.
+
+Gibbon: This needs work, I will do it at a later date.
 
 Trademark disclaimers:
 ----------------------
@@ -68,29 +71,21 @@ should be construed.
 
 Steam, GOG Galaxy, and Nintendo Switch:
 ---------------------------------------
-The Strife: Veteran Edition GPL Source Code release does not include 
+The Strife: The Order Edition GPL Source Code release does not include 
 functionality for integrating with Steam, GOG Galaxy, or Nintendo Switch.
 This includes roaming profiles, achievements, leaderboards, matchmaking, the
 overlay, or any other Steam or Galaxy features.  It may be necessary to 
 undefine the `_USE_STEAM_`, `GOG_RELEASE`, or `SVE_PLAT_SWITCH` symbols in 
 build scripts or project files in order to compile.
 
-
-Other platforms, updated source code, security issues:
-------------------------------------------------------
-
-If you have obtained this source code several weeks after the time of release,
-it is likely that you can find modified and improved versions of the engine in
-various open source projects across the Internet.
-
-Depending on your interest with the source code, those may be a better starting
-point.
+Due to the integration with steam/gog - Strife: The Order Edition also does not
+support any frontend multiplayer and any other such things.
 
 
 LICENSE
 =======
 
-The Strife: Veteran Edition source code is available under the terms of the GNU
+The Strife: The Order Edition source code is available under the terms of the GNU
 General Public License v2.0
 
 Exceptions for linking with Steam, GOG Galaxy, and Nintendo Switch runtimes,
