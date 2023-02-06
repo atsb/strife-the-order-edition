@@ -1,7 +1,8 @@
 Strife: The Order Edition
 =======================================
 
-This has been renamed to The Order Edition as Strife: Veteran Edition is a trademarked name by NightDive Studios.
+This has been renamed to The Order Edition since 
+the Strife: Veteran Edition is a trademarked name by NightDive Studios.
 
 This file contains the following sections:
 
@@ -16,20 +17,20 @@ Game data and patching:
 
 Strife: The Order Edition uses the Strife Veteran Edition game data.
 
-This source release does not contain any game data, the game data is still
+This source port does not contain any game data of the Strife Veteran Edition, the game data is still
 covered by the original EULA and must be obeyed as usual.
 
-Strife: Veteran Edition is available from GOG at
-https://www.gog.com/game/strife_veteran_edition
+Strife: Veteran Edition is available from [GOG](https://www.gog.com/game/strife_veteran_edition)
 
-Strife: Veteran Edition is available from the Steam store at
-http://store.steampowered.com/app/317040/
+Strife: Veteran Edition is available from the [Steam store](http://store.steampowered.com/app/317040/)
 
 Compiling on Windows:
 ---------------------
 
 A cleaned and corrected project file for Microsoft Visual Studio is provided in 
-msvc2015/chocolate.sln and should compile with any edition.
+msvc2022/strife-toe.sln and should compile with any edition except in visual studio 2010 or down.
+for the x64 users: at the moment libtheora will be the library for playing videos it´s being defined with
+`NIGHTDIVE` 
 
 Compiling on Linux and macOS:
 -------------------
@@ -39,7 +40,7 @@ A CMake build system has been added in version 1.3, and is currently up-to-date.
 Trademark disclaimers:
 ----------------------
 
-The source code may make reference to the following trademarks:
+The source code itself may make reference to the following trademarks:
 
 "DOOM" is a trademark of ZeniMax Media, Incorporated.
 "Heretic" and "Hexen" are trademarks of Raven Software, Incorporated.
@@ -65,19 +66,24 @@ support any frontend multiplayer and any other such things.
 LICENSE
 =======
 
-The Strife: The Order Edition source code is available under the terms of the GNU
+The Strife: The Order Edition source port is available under the terms of the GNU
 General Public License v2.0
 
 Exceptions for linking with Steam, GOG Galaxy, and Nintendo Switch runtimes,
 which are subject to non-disclosure agreements, were obtained by Night Dive
-Studios, Inc. Code subject to NDA is not included with this public source 
-release.
+Studios, Inc. Code subject to NDA it´s not included with this public source 
+port.
+
+DISCLAIMER: The authors and contribuitors of this source port, they are not responsable for trying to 
+build the referents platforms above, so don´t ask to how to compile
+and do not distribute the binnaries of nintendo switch or other platforms above 
+this illegal and you will be suffering a lawsuit.
 
 See COPYING.txt for the GNU GENERAL PUBLIC LICENSE
 
 
-EXCLUDED CODE: The code described below and contained in the Strife: Veteran 
-Edition GPL Source Code release is not part of the Program covered by the GPL 
+EXCLUDED CODE: The code described below and contained in The Strife: The Order Edition
+it´s not part of the Program covered by the GPL 
 and is expressly excluded from its terms.  You are solely responsible for 
 obtaining from the copyright holder a license for such code and complying with
 the applicable license terms.
