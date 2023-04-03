@@ -61,7 +61,6 @@ void HU_Erase(void);
 
 // [SVE]
 void HU_SetNotification(char *message);
-void HU_NotifyCheating(player_t *pl);
 
 extern char *chat_macros[10];
 

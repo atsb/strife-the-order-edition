@@ -2324,9 +2324,6 @@ static void G_SpecialReborn(void)
         players[0].accuracy = 90;
 
     P_GiveBody(&players[0], 200);
-
-    // achievements are disabled on this file, sorry :/
-    HU_NotifyCheating(&players[0]);
 }
 
 //
@@ -2444,10 +2441,6 @@ void G_DoLoadGame(boolean userload)
     
     // draw the pattern into the back screen
     R_FillBackScreen ();
-
-    // [SVE]
-    if(players[0].cheats & CF_CHEATING)
-        HU_NotifyCheating(NULL);
 } 
 
 //

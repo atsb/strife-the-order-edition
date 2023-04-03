@@ -380,33 +380,6 @@ void HU_SetNotification(char *message)
     w_notification.l[w_notification.cl].x = (SCREENWIDTH/2) - (HUlib_yellowTextWidth(message)/2);
 }
 
-//
-// HU_NotifyCheating
-//
-// haleyjd 20141122: [SVE] Convenience function
-//
-void HU_NotifyCheating(player_t *pl)
-{
-    if(!pl || !(pl->cheats & CF_CHEATING))
-    {
-        // only one at a time plz
-        // 20141203: also not in netgames.
-        if(!netgame && notification_counter <= 0) 
-        {
-            char *msg = "ACHIEVEMENTS ARE DISABLED";
-            S_StartSound(NULL, sfx_radio);
-            notification_on = true;
-            notification_counter = HU_MSGTIMEOUT/2;
-
-            HUlib_addMessageToSText(&w_notification, NULL, msg);
-            w_notification.l[w_notification.cl].x = (SCREENWIDTH/2) - (HUlib_yellowTextWidth(msg)/2);
-        }
-
-        if(pl)
-            pl->cheats |= CF_CHEATING;
-    }
-}
-
 // 
 // HU_ShowTime
 //

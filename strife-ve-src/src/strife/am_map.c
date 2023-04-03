@@ -776,7 +776,6 @@ boolean AM_Responder(event_t* ev)
         {
             rc = false;
             cheating = (cheating+1) % 3;
-            HU_NotifyCheating(plr); // haleyjd: [SVE] used beneficial cheats
         }
     }
     else if(ev->type == ev_keyup || ev->type == ev_joybtnup)

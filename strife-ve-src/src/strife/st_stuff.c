@@ -767,9 +767,7 @@ boolean ST_CheatResponder(event_t *ev)
             plyr->message = DEH_String("devparm ON");
         else
             plyr->message = DEH_String("devparm OFF");
-        
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
+       
     }
 
     // [STRIFE] Cheats below are not allowed in netgames or demos
@@ -794,15 +792,11 @@ boolean ST_CheatResponder(event_t *ev)
             plyr->st_update = true;
             plyr->message = DEH_String(STSTR_DQDOFF);
         }
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
 		return true;
     }
     else if (cht_CheckCheat(&cheat_ammo, input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
         // [STRIFE]: "BOOMSTIX" cheat for all normal weapons
         plyr->armorpoints = deh_idkfa_armor;
@@ -851,8 +845,6 @@ boolean ST_CheatResponder(event_t *ev)
 
             plyr->message = DEH_String("Cheater Keys Added");
         }
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
 		return true;
     }
@@ -873,8 +865,6 @@ boolean ST_CheatResponder(event_t *ev)
             plyr->message = DEH_String(STSTR_NCOFF);
             plyr->mo->flags &= ~MF_NOCLIP;
         }
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
 		return true;
     }
@@ -886,8 +876,6 @@ boolean ST_CheatResponder(event_t *ev)
             plyr->message = DEH_String("STEALTH BOOTS ON");
         else
             plyr->message = DEH_String("STEALTH BOOTS OFF");
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
 		return true;
     }
@@ -897,8 +885,6 @@ boolean ST_CheatResponder(event_t *ev)
         // [STRIFE]: Handle berserk, invisibility, and envirosuit
         if(cht_CheckCheat(&cheat_powerup[i], input))
         {
-            // [SVE]: used beneficial cheats
-            HU_NotifyCheating(plyr);
             if(plyr->powers[i])
                 plyr->powers[i] = (i != 1);
             else
@@ -910,8 +896,6 @@ boolean ST_CheatResponder(event_t *ev)
     }
     if(cht_CheckCheat(&cheat_powerup[ST_PUMPUP_H], input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         // [STRIFE]: PUMPUPH gives medical inventory items
         P_GiveItemToPlayer(plyr, SPR_STMP, MT_INV_MED1);
         P_GiveItemToPlayer(plyr, SPR_MDKT, MT_INV_MED2);
@@ -930,8 +914,6 @@ boolean ST_CheatResponder(event_t *ev)
         }
         plyr->backpack = true;
 
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         for(i = 0; i < NUMAMMO; ++i)
             P_GiveAmmo(plyr, i, 1);
         plyr->message = DEH_String("you got the stuff!");
@@ -940,8 +922,6 @@ boolean ST_CheatResponder(event_t *ev)
     }
     if(cht_CheckCheat(&cheat_powerup[ST_PUMPUP_S], input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         // [STRIFE]: PUMPUPS gives stamina and accuracy upgrades
         P_GiveItemToPlayer(plyr, SPR_TOKN, MT_TOKEN_STAMINA);
         P_GiveItemToPlayer(plyr, SPR_TOKN, MT_TOKEN_NEW_ACCURACY);
@@ -951,8 +931,6 @@ boolean ST_CheatResponder(event_t *ev)
     }
     if(cht_CheckCheat(&cheat_powerup[ST_PUMPUP_T], input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         // [STRIFE] PUMPUPT gives targeter
         P_GivePower(plyr, pw_targeter);
         plyr->message = DEH_String("you got the stuff!");
@@ -1007,8 +985,6 @@ boolean ST_CheatResponder(event_t *ev)
             if (map <= 0 || map > 40)
 				return true;
         }
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 
         // So be it.
         plyr->message = DEH_String(STSTR_CLEV);
@@ -1028,8 +1004,6 @@ boolean ST_CheatResponder(event_t *ev)
         // BUG: should be <= 9. Shouldn't do anything bad though...
         if(spot <= 10) 
         {
-            // [SVE]: used beneficial cheats
-            HU_NotifyCheating(plyr);
             plyr->message = DEH_String("Spawning to spot");
             G_RiftCheat(spot);
 			return true;
@@ -1043,16 +1017,12 @@ boolean ST_CheatResponder(event_t *ev)
     {
         stonecold ^= 1;
         plyr->message = DEH_String("Kill 'em.  Kill 'em All");
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
 		return true;
     }
 
     // villsa [STRIFE]
     if(cht_CheckCheat(&cheat_midas, input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         plyr->message = DEH_String("YOU GOT THE MIDAS TOUCH, BABY");
         P_GiveItemToPlayer(plyr, SPR_HELT, MT_TOKEN_TOUGHNESS);
 
@@ -1063,8 +1033,6 @@ boolean ST_CheatResponder(event_t *ev)
     // haleyjd 20110224: No sigil in demo version
     if(!isdemoversion && cht_CheckCheat(&cheat_lego, input))
     {
-        // [SVE]: used beneficial cheats
-        HU_NotifyCheating(plyr);
         plyr->st_update = true;
         if(plyr->weaponowned[wp_sigil])
         {
@@ -1107,7 +1075,6 @@ boolean ST_CheatResponder(event_t *ev)
         else
         {
             static char itembuf[80];
-            HU_NotifyCheating(plyr);
             P_GiveItemToPlayer(plyr, states[mobjinfo[item].spawnstate].sprite, item);
             if(mobjinfo[item].name)
                 M_snprintf(itembuf, sizeof(itembuf), "You got %s", mobjinfo[item].name);

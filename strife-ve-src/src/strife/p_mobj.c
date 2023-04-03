@@ -1065,10 +1065,6 @@ void P_SpawnPlayer(mapthing_t* mthing)
         // wake up the heads up text
         HU_Start ();
     }
-
-    // haleyjd [SVE] 20140914: propagate this node's "cheating" state to consoleplayer
-    if(d_cheating && p == &players[consoleplayer])
-        HU_NotifyCheating(p);
 }
 
 
