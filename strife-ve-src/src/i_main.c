@@ -156,6 +156,8 @@ int main(int argc, char **argv)
     // Edward [SVE]: Speed things up
     I_SetCPUHighPerformance(1);
 
+    I_InitAppServices();
+
     // Only schedule on a single core, if we have multiple
     // cores.  This is to work around a bug in SDL_mixer.
     // [SVE]: this should not be needed any more.
